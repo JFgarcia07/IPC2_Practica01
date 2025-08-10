@@ -4,6 +4,7 @@
  */
 package com.mycompany.ipc2_practica01.GUI;
 
+import com.mycompany.ipc2_practica01.GUI.RegistrosJIF.RegistroActividadJIF;
 import com.mycompany.ipc2_practica01.GUI.RegistrosJIF.RegistroAsistenciaJIF;
 import com.mycompany.ipc2_practica01.GUI.RegistrosJIF.RegistroEventoJIF;
 import com.mycompany.ipc2_practica01.GUI.RegistrosJIF.RegistroParticipanteJIF;
@@ -113,8 +114,9 @@ public class RegistrosJIFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ActividadActionPerformed
-        //RegistroActividad RActividad = new RegistroActividad();
-        
+        RegistroActividadJIF RActividad = new RegistroActividadJIF();
+        MenuRegistro.add(RActividad);
+        RActividad.setVisible(true);
     }//GEN-LAST:event_btn_ActividadActionPerformed
 
     private void btn_AsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AsistenciaActionPerformed

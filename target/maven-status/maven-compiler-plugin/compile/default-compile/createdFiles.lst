@@ -22,4 +22,6 @@ com/mycompany/ipc2_practica01/BDconnection/BDconnection.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$2.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$5.class
+com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroActividadJIF.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIFrame$4.class
+com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroActividadJIF$1.class

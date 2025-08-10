@@ -56,7 +56,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
 
         TF_codEvento.setBackground(new java.awt.Color(255, 255, 255));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASISTENTE", "CONFERENCISTA", "TALLERISTA", "OTRO", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASISTENTE", "CONFERENCISTA", "TALLERISTA", "OTRO" }));
 
         btn_inscribir.setText("Inscribir");
 
