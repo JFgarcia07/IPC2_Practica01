@@ -48,8 +48,8 @@ public class BDconnection {
         }
     }
 
-    public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax) {
-        String sql = "INSERT INTO evento (codigo_evento, fecha_evento, tipo_evento, titulo_evento, ubicacion, cupo_maximo) VALUES (?, ?, ?, ?, ?, ?)";
+    public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax, double costo) {
+        String sql = "INSERT INTO evento (codigo_evento, fecha_evento, tipo_evento, titulo_evento, ubicacion, cupo_maximo) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             //PASAR DE D/M/A -> A/M/D
             SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
@@ -62,6 +62,7 @@ public class BDconnection {
             ps.setString(4, tituloEvento);
             ps.setString(5, ubicacion);
             ps.setInt(6, cupoMax);
+            ps.setDouble(7, costo);
 
             int rowsAffected = ps.executeUpdate();
             mensajeQuery(rowsAffected);
