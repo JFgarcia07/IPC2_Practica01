@@ -1,6 +1,7 @@
 /home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/BDconnection/BDconnection.java
 /home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame.java
 /home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/GUI/InscripcionJIFrame.java
+/home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/GUI/LimitadorCaracteres.java
 /home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/GUI/PagosJIFrame.java
 /home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroActividadJIF.java
 /home/jgarcia07/NetBeansProjects/IPC2_Practica01/src/main/java/com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroAsistenciaJIF.java

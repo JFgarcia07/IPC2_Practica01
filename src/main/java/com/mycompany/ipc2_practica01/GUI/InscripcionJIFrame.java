@@ -15,6 +15,9 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
      */
     public InscripcionJIFrame() {
         initComponents();
+        
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
+        TF_email.addKeyListener(new LimitadorCaracteres(50));
     }
 
     /**
@@ -48,6 +51,11 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
         jLabel3.setText("Correo electronico:");
 
         TF_email.setBackground(new java.awt.Color(255, 255, 255));
+        TF_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_emailActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
@@ -113,6 +121,10 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TF_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_emailActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

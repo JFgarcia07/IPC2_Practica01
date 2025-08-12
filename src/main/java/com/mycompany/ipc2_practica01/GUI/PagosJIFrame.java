@@ -4,6 +4,8 @@
  */
 package com.mycompany.ipc2_practica01.GUI;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author jgarcia07
@@ -14,7 +16,12 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
      * Creates new form PagosJIFrame
      */
     public PagosJIFrame() {
+        
         initComponents();
+        
+        TF_email.addKeyListener(new LimitadorCaracteres(50));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
+        
     }
 
     /**
@@ -50,6 +57,11 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
         jLabel2.setText("Correo electronico:");
 
         TF_email.setBackground(new java.awt.Color(255, 255, 255));
+        TF_email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_emailActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,6 +146,10 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_pagarActionPerformed
+
+    private void TF_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_emailActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

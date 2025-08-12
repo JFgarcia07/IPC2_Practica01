@@ -12,9 +12,11 @@ com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroEventoJIF$1.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$4.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$1.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroAsistenciaJIF.class
+com/mycompany/ipc2_practica01/GUI/PagosJIFrame$2.class
 com/mycompany/ipc2_practica01/IPC2_Practica01.class
 com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIFrame$1.class
+com/mycompany/ipc2_practica01/GUI/LimitadorCaracteres.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$3.class
 com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame$2.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroParticipanteJIF$1.class
