@@ -58,7 +58,7 @@
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Component id="btn_registrarAsistencia" min="-2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="TF_codEvento" alignment="0" pref="300" max="32767" attributes="0"/>
+                              <Component id="TF_codActividad" alignment="0" pref="300" max="32767" attributes="0"/>
                               <Component id="TF_email" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -80,7 +80,7 @@
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="TF_codEvento" min="-2" max="-2" attributes="0"/>
+                  <Component id="TF_codActividad" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                   <Component id="btn_registrarAsistencia" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="316" max="32767" attributes="0"/>
@@ -132,10 +132,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Codigo evento:"/>
+            <Property name="text" type="java.lang.String" value="Codigo Actividad:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="TF_codEvento">
+        <Component class="javax.swing.JTextField" name="TF_codActividad">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>

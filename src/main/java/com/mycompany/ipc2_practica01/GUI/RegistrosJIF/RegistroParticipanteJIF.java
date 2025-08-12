@@ -4,6 +4,8 @@
  */
 package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
+import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
+
 /**
  *
  * @author jgarcia07
@@ -15,6 +17,9 @@ public class RegistroParticipanteJIF extends javax.swing.JInternalFrame {
      */
     public RegistroParticipanteJIF() {
         initComponents();
+        TF_nombre.addKeyListener(new LimitadorCaracteres(45));
+        TF_email.addKeyListener(new LimitadorCaracteres(50));
+        TF_institucion1.addKeyListener(new LimitadorCaracteres(150));
     }
 
     /**

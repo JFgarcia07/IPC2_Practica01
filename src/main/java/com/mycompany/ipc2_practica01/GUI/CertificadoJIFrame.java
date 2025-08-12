@@ -15,6 +15,9 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
      */
     public CertificadoJIFrame() {
         initComponents();
+        
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
+        TF_email.addKeyListener(new LimitadorCaracteres(50));
     }
 
     /**

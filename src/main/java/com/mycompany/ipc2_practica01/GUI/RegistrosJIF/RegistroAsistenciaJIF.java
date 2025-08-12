@@ -4,6 +4,8 @@
  */
 package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
+import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
+
 /**
  *
  * @author jgarcia07
@@ -15,6 +17,9 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
      */
     public RegistroAsistenciaJIF() {
         initComponents();
+        
+        TF_email.addKeyListener(new LimitadorCaracteres(50));
+        TF_codActividad.addKeyListener(new LimitadorCaracteres(7));
     }
 
     /**
@@ -31,7 +36,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         TF_email = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TF_codEvento = new javax.swing.JTextField();
+        TF_codActividad = new javax.swing.JTextField();
         btn_registrarAsistencia = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
 
@@ -51,9 +56,9 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Codigo evento:");
+        jLabel4.setText("Codigo Actividad:");
 
-        TF_codEvento.setBackground(new java.awt.Color(255, 255, 255));
+        TF_codActividad.setBackground(new java.awt.Color(255, 255, 255));
 
         btn_registrarAsistencia.setText("Registrar Asistencia");
 
@@ -84,7 +89,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(btn_registrarAsistencia)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TF_codEvento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                            .addComponent(TF_codActividad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(TF_email, javax.swing.GroupLayout.Alignment.LEADING)))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -100,7 +105,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TF_codActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(75, 75, 75)
                 .addComponent(btn_registrarAsistencia)
                 .addGap(0, 316, Short.MAX_VALUE))
@@ -126,7 +131,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TF_codEvento;
+    private javax.swing.JTextField TF_codActividad;
     private javax.swing.JTextField TF_email;
     private javax.swing.JButton btn_registrarAsistencia;
     private javax.swing.JButton btn_regresar;
