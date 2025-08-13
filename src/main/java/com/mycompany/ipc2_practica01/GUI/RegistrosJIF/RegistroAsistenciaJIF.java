@@ -20,7 +20,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         initComponents();
         
         TF_email.addKeyListener(new LimitadorCaracteres(50));
-        TF_codActividad.addKeyListener(new LimitadorCaracteres(7));
+        TF_codActividad.addKeyListener(new LimitadorCaracteres(8));
     }
 
     /**
@@ -40,6 +40,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         TF_codActividad = new javax.swing.JTextField();
         btn_registrarAsistencia = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -75,6 +76,8 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setText("ACT -");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -92,11 +95,15 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel1)
                             .addGap(304, 304, 304)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btn_registrarAsistencia)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TF_codActividad, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(TF_email, javax.swing.GroupLayout.Alignment.LEADING)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(btn_registrarAsistencia))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(TF_email, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(TF_codActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +118,9 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_codActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TF_codActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(75, 75, 75)
                 .addComponent(btn_registrarAsistencia)
                 .addGap(0, 316, Short.MAX_VALUE))
@@ -136,8 +145,9 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_registrarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarAsistenciaActionPerformed
+        final String preFijoAct = "ACT-";
         String email = TF_email.getText();
-        String codEvento = TF_codActividad.getText();
+        String codEvento = preFijoAct + TF_codActividad.getText();
         
         BDconnection con = new BDconnection();
         con.regristrarAsistencia(email, codEvento);
@@ -150,6 +160,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_registrarAsistencia;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

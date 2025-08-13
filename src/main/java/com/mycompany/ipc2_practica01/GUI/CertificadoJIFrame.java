@@ -36,6 +36,7 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
         TF_codEvento = new javax.swing.JTextField();
         btn_certificado = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -64,10 +65,17 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
         });
 
         btn_certificado.setText("Generar Certificado");
+        btn_certificado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_certificadoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Emitir Certificado");
+
+        jLabel2.setText("EVT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -75,21 +83,24 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(324, 324, 324)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4)
                     .addComponent(TF_email, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(TF_codEvento)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(301, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_certificado)
-                        .addGap(380, 380, 380))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(271, 271, 271))))
+                        .addGap(271, 271, 271))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btn_certificado)
+                        .addGap(380, 380, 380))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +114,9 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(63, 63, 63)
                 .addComponent(btn_certificado)
                 .addContainerGap(332, Short.MAX_VALUE))
@@ -131,12 +144,17 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_codEventoActionPerformed
 
+    private void btn_certificadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_certificadoActionPerformed
+        //TODO
+    }//GEN-LAST:event_btn_certificadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TF_codEvento;
     private javax.swing.JTextField TF_email;
     private javax.swing.JButton btn_certificado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

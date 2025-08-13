@@ -22,7 +22,7 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
         initComponents();
 
         TF_email.addKeyListener(new LimitadorCaracteres(50));
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(12));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(8));
 
     }
 
@@ -45,6 +45,7 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         TF_monto = new javax.swing.JTextField();
         btn_pagar = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -84,6 +85,8 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setText("EVT -");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,10 +101,13 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3)
                                 .addComponent(TF_email)
                                 .addComponent(jLabel2)
-                                .addComponent(TF_codEvento)
                                 .addComponent(jLabel1)
                                 .addComponent(CB_tipoPago, 0, 269, Short.MAX_VALUE)
-                                .addComponent(TF_monto))))
+                                .addComponent(TF_monto)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(TF_codEvento)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(415, 415, 415)
                         .addComponent(btn_pagar)))
@@ -117,7 +123,9 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,9 +154,10 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
+        final String preFijoEvt = "EVT-";
         try {
             String email = TF_email.getText();
-            String codEvento = TF_codEvento.getText();
+            String codEvento = preFijoEvt + TF_codEvento.getText();
             String metodoPago = CB_tipoPago.getSelectedItem().toString();
             double monto = Double.parseDouble(TF_monto.getText());
             
@@ -174,6 +183,7 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

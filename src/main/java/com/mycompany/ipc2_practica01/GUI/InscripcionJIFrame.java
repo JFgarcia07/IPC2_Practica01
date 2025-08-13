@@ -18,7 +18,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
     public InscripcionJIFrame() {
         initComponents();
         
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(12));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(8));
         TF_email.addKeyListener(new LimitadorCaracteres(50));
     }
 
@@ -39,6 +39,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
         TF_codEvento = new javax.swing.JTextField();
         CB_tipoInscripcion = new javax.swing.JComboBox<>();
         btn_inscribir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -75,6 +76,8 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("EVT -");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -84,12 +87,15 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(294, 294, 294)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TF_codEvento, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(jLabel4)
                             .addComponent(TF_email, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(CB_tipoInscripcion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(CB_tipoInscripcion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TF_codEvento))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(404, 404, 404)
                         .addComponent(btn_inscribir)))
@@ -105,7 +111,9 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,8 +142,9 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TF_emailActionPerformed
 
     private void btn_inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inscribirActionPerformed
+        final String preFijoEvt = "EVT-";
         String email = TF_email.getText();
-        String codEvento = TF_codEvento.getText();
+        String codEvento = preFijoEvt + TF_codEvento.getText();
         String tipoInscripcion = CB_tipoInscripcion.getSelectedItem().toString();
         
         BDconnection con = new BDconnection();
@@ -148,6 +157,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
     private javax.swing.JTextField TF_codEvento;
     private javax.swing.JTextField TF_email;
     private javax.swing.JButton btn_inscribir;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

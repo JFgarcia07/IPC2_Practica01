@@ -21,7 +21,7 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
     public RegistroEventoJIF() {
         initComponents();
         
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(12));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(8));
         TF_titulo.addKeyListener(new LimitadorCaracteres(50));
         TF_ubicacion.addKeyListener(new LimitadorCaracteres(150));
     }
@@ -56,6 +56,7 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
         btn_regresar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         TF_costo = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -132,6 +133,8 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
 
         TF_costo.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setText("ACT-");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,10 +170,13 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
                             .addComponent(labelAño)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(CB_año, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(TF_codEvento)
                         .addComponent(CB_tipoEvento, 0, 300, Short.MAX_VALUE)
                         .addComponent(TF_titulo)
-                        .addComponent(TF_costo)))
+                        .addComponent(TF_costo)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(TF_codEvento))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,7 +189,9 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(TF_codEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -238,9 +246,10 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_registrarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarEventoActionPerformed
+        final String preFijoEvt = "EVT-";
         BDconnection con = new BDconnection();
         try {
-            String codEvento = TF_codEvento.getText();
+            String codEvento = preFijoEvt+TF_codEvento.getText();
             String fecha = CB_dia.getSelectedItem().toString()+"/"+CB_mes.getSelectedItem().toString()+"/20"+CB_año.getSelectedItem().toString();
             String tipoEvento = CB_tipoEvento.getSelectedItem().toString();
             String titulo = TF_titulo.getText();
@@ -269,6 +278,7 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_registrarEvento;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
