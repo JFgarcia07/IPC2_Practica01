@@ -150,6 +150,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         String codEvento = preFijoAct + TF_codActividad.getText();
         
         BDconnection con = new BDconnection();
+        con.connect();
         con.regristrarAsistencia(email, codEvento);
     }//GEN-LAST:event_btn_registrarAsistenciaActionPerformed
 

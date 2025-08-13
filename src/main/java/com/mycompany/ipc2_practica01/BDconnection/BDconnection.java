@@ -7,6 +7,7 @@ package com.mycompany.ipc2_practica01.BDconnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -127,37 +128,62 @@ public class BDconnection {
     }
 
     public void registrarActividad(String codActividad, String codEvento, String tipoActividad, String titulo, String email, String horaInicio, String horaFin, int cupoMax) {
+        String sqlSelect = "SELECT  rol_participante FROM inscripcion WHERE correo_electronico = ?";
         String sql = "INSERT INTO actividad (codigo_actividad, codigo_evento, correo_electronico, tipo_actividad, titulo_actividad, hora_inicio, hora_fin, cupo_maximo) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            //Pasar de String a sql.date
-            SimpleDateFormat hInicio = new SimpleDateFormat("HH:mm");
-            SimpleDateFormat hFin = new SimpleDateFormat("HH:mm");
-
-            java.util.Date hInicioUtil = hInicio.parse(horaInicio);
-            java.util.Date hFinUtil = hFin.parse(horaFin);
-
-            java.sql.Time horaInicioSQL = new java.sql.Time(hInicioUtil.getTime());
-            java.sql.Time horaFinSQL = new java.sql.Time(hFinUtil.getTime());
-
-            ps.setString(1, codActividad);
-            ps.setString(2, codEvento);
-            ps.setString(3, email);
-            ps.setString(4, tipoActividad);
-            ps.setString(5, titulo);
-            ps.setTime(6, horaInicioSQL);
-            ps.setTime(7, horaFinSQL);
-            ps.setInt(8, cupoMax);
-
-            int rowsAffected = ps.executeUpdate();
-            mensajeQuery(rowsAffected);
+        boolean esParticipante = false;
+        
+        try (PreparedStatement ps = connection.prepareStatement(sqlSelect)){
+            ps.setString(1, email);
+            
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    String rol = rs.getString("rol_participante");
+                    if("ASISTENTE".equals(rol)){
+                        esParticipante = true;
+                    }
+                } else {
+                    System.out.println("NO SE ENCONTRO EL USUARIO");
+                }
+            } 
         } catch (SQLException e) {
-            System.out.println("Ha ocurrido un error inseperado");
             e.printStackTrace();
-        } catch (ParseException ex) {
-            System.out.println("Formato invalido de hora");
-            ex.printStackTrace();
         }
+        
+        if(esParticipante){
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                //Pasar de String a sql.date
+                SimpleDateFormat hInicio = new SimpleDateFormat("HH:mm");
+                SimpleDateFormat hFin = new SimpleDateFormat("HH:mm");
+
+                java.util.Date hInicioUtil = hInicio.parse(horaInicio);
+                java.util.Date hFinUtil = hFin.parse(horaFin);
+
+                java.sql.Time horaInicioSQL = new java.sql.Time(hInicioUtil.getTime());
+                java.sql.Time horaFinSQL = new java.sql.Time(hFinUtil.getTime());
+
+                ps.setString(1, codActividad);
+                ps.setString(2, codEvento);
+                ps.setString(3, email);
+                ps.setString(4, tipoActividad);
+                ps.setString(5, titulo);
+                ps.setTime(6, horaInicioSQL);
+                ps.setTime(7, horaFinSQL);
+                ps.setInt(8, cupoMax);
+
+                int rowsAffected = ps.executeUpdate();
+                mensajeQuery(rowsAffected);
+            } catch (SQLException e) {
+                System.out.println("Ha ocurrido un error inseperado");
+                e.printStackTrace();
+            } catch (ParseException ex) {
+                System.out.println("Formato invalido de hora");
+                ex.printStackTrace();
+            }
+        } else {
+            System.out.println("Es participante");
+        }
+        
     }
 
     public void regristrarAsistencia(String email, String codEvento) {

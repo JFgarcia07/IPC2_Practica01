@@ -148,6 +148,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
         String tipoInscripcion = CB_tipoInscripcion.getSelectedItem().toString();
         
         BDconnection con = new BDconnection();
+        con.connect();
         con.inscripcion(email, codEvento, tipoInscripcion);
     }//GEN-LAST:event_btn_inscribirActionPerformed
 

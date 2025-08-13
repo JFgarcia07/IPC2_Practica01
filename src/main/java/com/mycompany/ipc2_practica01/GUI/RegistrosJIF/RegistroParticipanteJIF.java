@@ -170,6 +170,7 @@ public class RegistroParticipanteJIF extends javax.swing.JInternalFrame {
         String email = TF_email.getText();
         
         BDconnection con = new BDconnection();
+        con.connect();
         con.registrarParticipante(nombre, tipoParticipante, institucion, email);
     }//GEN-LAST:event_btn_registrarParticipanteActionPerformed
 

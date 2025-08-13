@@ -4,7 +4,9 @@
  */
 package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -138,6 +140,11 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
         TF_cupoMax.setBackground(new java.awt.Color(255, 255, 255));
 
         btn_registrarActividad.setText("Registrar Actividad");
+        btn_registrarActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarActividadActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setText("< Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -282,6 +289,31 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
     private void TF_codActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_codActividadActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_codActividadActionPerformed
+
+    private void btn_registrarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarActividadActionPerformed
+        final String preFijoAct = "ACT-";
+        final String preFijoEvt = "EVT-";
+        
+        try {
+            String codActividad = preFijoAct + TF_codActividad;
+            String codEvento = preFijoEvt + TF_codEvento;
+            String tipoActividad = CB_tipoActividad.getSelectedItem().toString();
+            String titulo = TF_titulo.getText();
+            String email = TF_email.getText();
+            String horaInicio = CB_horaIncio.getSelectedItem().toString() + ":" + CB_minutoIncio.getSelectedItem().toString();
+            String horaFin = CB_horaFin.getSelectedItem().toString() + ":" + CB_minutoFin.getSelectedItem().toString();
+            int cupo = Integer.parseInt(TF_cupoMax.getText());
+            
+            BDconnection con = new BDconnection();
+            con.connect();
+            con.registrarActividad(codActividad, codEvento, tipoActividad, titulo, email, horaInicio, horaFin, cupo);
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "EL CUPO MAXIMO DEBE SER UN VALOR NUMERICO ENTERO");
+        }
+
+
+    }//GEN-LAST:event_btn_registrarActividadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

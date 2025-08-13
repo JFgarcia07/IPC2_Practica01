@@ -8,6 +8,7 @@ import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -133,6 +134,7 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
 
         TF_costo.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ACT-");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -257,10 +259,14 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
             int cupoMax = parseInt(TF_cupoMax.getText());
             double costo = parseDouble(TF_costo.getText());
             
-            con.connect();
-            con.registrarEvento(codEvento, fecha, tipoEvento, titulo, ubicacion, cupoMax, costo);
+            if (TF_codEvento.getText().trim().isEmpty() || TF_titulo.getText().trim().isEmpty() || TF_ubicacion.getText().trim().isEmpty() || TF_cupoMax.getText().trim().isEmpty() || TF_costo.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
+            } else {
+                con.connect();
+                con.registrarEvento(codEvento, fecha, tipoEvento, titulo, ubicacion, cupoMax, costo);
+            }
         } catch (NumberFormatException e) {
-            
+            JOptionPane.showMessageDialog(null, "Deben de ser valores numericos el Cupo Máximo y el Costo");
         }
     }//GEN-LAST:event_btn_registrarEventoActionPerformed
 

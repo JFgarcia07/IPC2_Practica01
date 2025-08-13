@@ -1,5 +1,4 @@
 com/mycompany/ipc2_practica01/GUI/PagosJIFrame$1.class
-com/mycompany/ipc2_practica01/BDconnection/validacionesInserts.class
 com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame$1.class
 com/mycompany/ipc2_practica01/GUI/InscripcionJIFrame$2.class
 com/mycompany/ipc2_practica01/GUI/PagosJIFrame.class
@@ -8,10 +7,13 @@ com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroAsistenciaJIF$1.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIFrame.class
 com/mycompany/ipc2_practica01/GUI/InscripcionJIFrame.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIFrame$3.class
+com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroActividadJIF$3.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroParticipanteJIF.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroEventoJIF.class
+com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroActividadJIF$2.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroEventoJIF$1.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$4.class
+com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame$3.class
 com/mycompany/ipc2_practica01/GUI/InscripcionJIFrame$1.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroAsistenciaJIF$2.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$1.class

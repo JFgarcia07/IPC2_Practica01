@@ -574,6 +574,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrar Actividad"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_registrarActividadActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_regresar">
           <Properties>
