@@ -4,6 +4,7 @@
  */
 package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
 
 /**
@@ -61,6 +62,11 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         TF_codActividad.setBackground(new java.awt.Color(255, 255, 255));
 
         btn_registrarAsistencia.setText("Registrar Asistencia");
+        btn_registrarAsistencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarAsistenciaActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setText("< Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +134,14 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_registrarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarAsistenciaActionPerformed
+        String email = TF_email.getText();
+        String codEvento = TF_codActividad.getText();
+        
+        BDconnection con = new BDconnection();
+        con.regristrarAsistencia(email, codEvento);
+    }//GEN-LAST:event_btn_registrarAsistenciaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

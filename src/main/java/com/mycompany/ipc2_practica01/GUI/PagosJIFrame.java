@@ -4,6 +4,8 @@
  */
 package com.mycompany.ipc2_practica01.GUI;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -16,12 +18,12 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
      * Creates new form PagosJIFrame
      */
     public PagosJIFrame() {
-        
+
         initComponents();
-        
+
         TF_email.addKeyListener(new LimitadorCaracteres(50));
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
-        
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(12));
+
     }
 
     /**
@@ -144,7 +146,17 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
-        // TODO add your handling code here:
+        try {
+            String email = TF_email.getText();
+            String codEvento = TF_codEvento.getText();
+            String metodoPago = CB_tipoPago.getSelectedItem().toString();
+            double monto = Double.parseDouble(TF_monto.getText());
+            
+            BDconnection con = new BDconnection();
+            con.pago(email, codEvento, metodoPago, monto);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El monto debe ser un valor numerico");
+        }
     }//GEN-LAST:event_btn_pagarActionPerformed
 
     private void TF_emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_emailActionPerformed

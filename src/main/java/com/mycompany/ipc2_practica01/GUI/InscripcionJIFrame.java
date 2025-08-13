@@ -4,6 +4,8 @@
  */
 package com.mycompany.ipc2_practica01.GUI;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
+
 /**
  *
  * @author jgarcia07
@@ -16,7 +18,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
     public InscripcionJIFrame() {
         initComponents();
         
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(12));
         TF_email.addKeyListener(new LimitadorCaracteres(50));
     }
 
@@ -35,7 +37,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
         TF_email = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         TF_codEvento = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CB_tipoInscripcion = new javax.swing.JComboBox<>();
         btn_inscribir = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
@@ -64,9 +66,14 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
 
         TF_codEvento.setBackground(new java.awt.Color(255, 255, 255));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASISTENTE", "CONFERENCISTA", "TALLERISTA", "OTRO" }));
+        CB_tipoInscripcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ASISTENTE", "CONFERENCISTA", "TALLERISTA", "OTRO" }));
 
         btn_inscribir.setText("Inscribir");
+        btn_inscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_inscribirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,7 +89,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
                             .addComponent(TF_email, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(CB_tipoInscripcion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(404, 404, 404)
                         .addComponent(btn_inscribir)))
@@ -102,7 +109,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CB_tipoInscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addComponent(btn_inscribir)
                 .addContainerGap(286, Short.MAX_VALUE))
@@ -126,12 +133,21 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TF_emailActionPerformed
 
+    private void btn_inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inscribirActionPerformed
+        String email = TF_email.getText();
+        String codEvento = TF_codEvento.getText();
+        String tipoInscripcion = CB_tipoInscripcion.getSelectedItem().toString();
+        
+        BDconnection con = new BDconnection();
+        con.inscripcion(email, codEvento, tipoInscripcion);
+    }//GEN-LAST:event_btn_inscribirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CB_tipoInscripcion;
     private javax.swing.JTextField TF_codEvento;
     private javax.swing.JTextField TF_email;
     private javax.swing.JButton btn_inscribir;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
