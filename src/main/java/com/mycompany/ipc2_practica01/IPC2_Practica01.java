@@ -4,7 +4,6 @@
 
 package com.mycompany.ipc2_practica01;
 
-import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.TriForceEvents;
 
 /**

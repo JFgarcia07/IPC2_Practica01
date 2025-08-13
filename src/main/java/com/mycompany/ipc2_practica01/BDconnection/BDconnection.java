@@ -49,7 +49,7 @@ public class BDconnection {
     }
 
     public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax, double costo) {
-        String sql = "INSERT INTO evento (codigo_evento, fecha_evento, tipo_evento, titulo_evento, ubicacion, cupo_maximo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO evento (codigo_evento, fecha_evento, tipo_evento, titulo_evento, ubicacion, cupo_maximo, costo_inscripcionn) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             //PASAR DE D/M/A -> A/M/D
             SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
@@ -72,7 +72,7 @@ public class BDconnection {
         } catch (ParseException ex) {
             System.out.println("Formato invalido de hora");
             ex.printStackTrace();
-        }
+        } 
     }
 
     public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {

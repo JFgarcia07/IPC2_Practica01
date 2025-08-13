@@ -4,7 +4,10 @@
  */
 package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
+import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 /**
  *
@@ -18,7 +21,7 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
     public RegistroEventoJIF() {
         initComponents();
         
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(12));
         TF_titulo.addKeyListener(new LimitadorCaracteres(50));
         TF_ubicacion.addKeyListener(new LimitadorCaracteres(150));
     }
@@ -109,6 +112,11 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
         TF_ubicacion.setBackground(new java.awt.Color(255, 255, 255));
 
         btn_registrarEvento.setText("Registrar Evento");
+        btn_registrarEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarEventoActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setText("Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +236,24 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_registrarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarEventoActionPerformed
+        BDconnection con = new BDconnection();
+        try {
+            String codEvento = TF_codEvento.getText();
+            String fecha = CB_dia.getSelectedItem().toString()+"/"+CB_mes.getSelectedItem().toString()+"/20"+CB_año.getSelectedItem().toString();
+            String tipoEvento = CB_tipoEvento.getSelectedItem().toString();
+            String titulo = TF_titulo.getText();
+            String ubicacion = TF_ubicacion.getText();
+            int cupoMax = parseInt(TF_cupoMax.getText());
+            double costo = parseDouble(TF_costo.getText());
+            
+            con.connect();
+            con.registrarEvento(codEvento, fecha, tipoEvento, titulo, ubicacion, cupoMax, costo);
+        } catch (NumberFormatException e) {
+            
+        }
+    }//GEN-LAST:event_btn_registrarEventoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

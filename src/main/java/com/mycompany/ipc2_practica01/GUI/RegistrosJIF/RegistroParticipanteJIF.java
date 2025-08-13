@@ -4,6 +4,7 @@
  */
 package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
 
 /**
@@ -78,6 +79,11 @@ public class RegistroParticipanteJIF extends javax.swing.JInternalFrame {
         TF_institucion1.setBackground(new java.awt.Color(255, 255, 255));
 
         btn_registrarParticipante.setText("Registrar Participante");
+        btn_registrarParticipante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarParticipanteActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setText("< Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +162,16 @@ public class RegistroParticipanteJIF extends javax.swing.JInternalFrame {
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_registrarParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarParticipanteActionPerformed
+        String nombre = TF_nombre.getText();
+        String tipoParticipante = CB_tipoParticipante.getSelectedItem().toString();
+        String institucion = TF_institucion1.getText();
+        String email = TF_email.getText();
+        
+        BDconnection con = new BDconnection();
+        con.registrarParticipante(nombre, tipoParticipante, institucion, email);
+    }//GEN-LAST:event_btn_registrarParticipanteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
