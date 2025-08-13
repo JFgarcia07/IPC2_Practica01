@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -77,6 +78,21 @@ public class BDconnection {
     }
 
     public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
+        //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
+        String sqlEmail = "SELECT COUNT(*) FROM participante WHERE correo_electronico = ?";
+        try (PreparedStatement psEmail = connection.prepareStatement(sqlEmail)){
+            psEmail.setString(1,email);
+            ResultSet rs = psEmail.executeQuery();
+            rs.next();
+            if(rs.getInt(1) > 0){
+                JOptionPane.showMessageDialog(null, "El usuario ya existe en la base de datos");
+                return;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inseperado");
+        }
+        
+        
         String sql = "INSERT INTO participante (nombre_participante, rol_participante, correo_electronico, institucion_procedencia) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, nombre);
@@ -87,7 +103,7 @@ public class BDconnection {
             int rowsAffected = ps.executeUpdate();
             mensajeQuery(rowsAffected);
         } catch (SQLException e) {
-            System.out.println("Ha ocurrido un error inseperado");
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error inseperado");
             e.printStackTrace();
         }
     }
