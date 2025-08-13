@@ -6,6 +6,7 @@ package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
 import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -164,14 +165,18 @@ public class RegistroParticipanteJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_registrarParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarParticipanteActionPerformed
-        String nombre = TF_nombre.getText();
-        String tipoParticipante = CB_tipoParticipante.getSelectedItem().toString();
-        String institucion = TF_institucion1.getText();
-        String email = TF_email.getText();
-        
         BDconnection con = new BDconnection();
-        con.connect();
-        con.registrarParticipante(nombre, tipoParticipante, institucion, email);
+        if (TF_nombre.getText().trim().isEmpty() || TF_institucion1.getText().trim().isEmpty() || TF_email.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
+        } else {
+            String nombre = TF_nombre.getText();
+            String tipoParticipante = CB_tipoParticipante.getSelectedItem().toString();
+            String institucion = TF_institucion1.getText();
+            String email = TF_email.getText();
+            
+            con.connect();
+            con.registrarParticipante(nombre, tipoParticipante, institucion, email);
+        }
     }//GEN-LAST:event_btn_registrarParticipanteActionPerformed
 
 
