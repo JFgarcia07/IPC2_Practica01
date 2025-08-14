@@ -135,7 +135,7 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
         TF_costo.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ACT-");
+        jLabel2.setText("EVT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,24 +249,32 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
 
     private void btn_registrarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarEventoActionPerformed
         final String preFijoEvt = "EVT-";
-        BDconnection con = new BDconnection();
-        try {
-            String codEvento = preFijoEvt+TF_codEvento.getText();
-            String fecha = CB_dia.getSelectedItem().toString()+"/"+CB_mes.getSelectedItem().toString()+"/20"+CB_año.getSelectedItem().toString();
-            String tipoEvento = CB_tipoEvento.getSelectedItem().toString();
-            String titulo = TF_titulo.getText();
-            String ubicacion = TF_ubicacion.getText();
-            int cupoMax = parseInt(TF_cupoMax.getText());
-            double costo = parseDouble(TF_costo.getText());
-            
-            if (TF_codEvento.getText().trim().isEmpty() || TF_titulo.getText().trim().isEmpty() || TF_ubicacion.getText().trim().isEmpty() || TF_cupoMax.getText().trim().isEmpty() || TF_costo.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
-            } else {
+
+        if (TF_codEvento.getText().trim().isEmpty() || TF_titulo.getText().trim().isEmpty() || TF_ubicacion.getText().trim().isEmpty() || TF_cupoMax.getText().trim().isEmpty() || TF_costo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
+        } else {
+            try {
+                String codEvento = preFijoEvt + TF_codEvento.getText();
+                String fecha = CB_dia.getSelectedItem().toString() + "/" + CB_mes.getSelectedItem().toString() + "/20" + CB_año.getSelectedItem().toString();
+                String tipoEvento = CB_tipoEvento.getSelectedItem().toString();
+                String titulo = TF_titulo.getText();
+                String ubicacion = TF_ubicacion.getText();
+                int cupoMax = parseInt(TF_cupoMax.getText());
+                double costo = parseDouble(TF_costo.getText());
+
+                BDconnection con = new BDconnection();
                 con.connect();
                 con.registrarEvento(codEvento, fecha, tipoEvento, titulo, ubicacion, cupoMax, costo);
+                
+                TF_codEvento.setText("");
+                TF_costo.setText("");
+                TF_cupoMax.setText("");
+                TF_titulo.setText("");
+                TF_ubicacion.setText("");
+                
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Deben de ser valores numericos el Cupo Máximo y el Costo");
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Deben de ser valores numericos el Cupo Máximo y el Costo");
         }
     }//GEN-LAST:event_btn_registrarEventoActionPerformed
 

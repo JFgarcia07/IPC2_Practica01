@@ -45,12 +45,37 @@ public class BDconnection {
     private void mensajeQuery(int rows) {
         if (rows > 0) {
             System.out.println("Datos ingresador correctamente");
+            JOptionPane.showMessageDialog(null, "Datos ingresador correctamente");
         } else {
             System.out.println("No sean podido ingresar los datos");
+            JOptionPane.showMessageDialog(null, "No sean podido ingresar los datos");
         }
     }
 
+    private boolean buscarCodEvento(String codEvento){
+        boolean existeElCodigo = false;
+        String sqlCodEvento = "SELECT COUNT(*) FROM evento WHERE codigo_evento = ?";
+        try (PreparedStatement psCodEvento = connection.prepareStatement(sqlCodEvento)){
+            psCodEvento.setString(1, codEvento);
+            ResultSet rs = psCodEvento.executeQuery();
+            rs.next();
+            if(rs.getInt(1) > 0){
+                existeElCodigo = true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+        }
+        
+        return existeElCodigo;
+    }
+    
     public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax, double costo) {
+        //HAY QUE VERIFICAR SI EL CODIGO DE EVENTO YA EXISTE
+        if (buscarCodEvento(codEvento) == true) {
+            JOptionPane.showMessageDialog(null, "El codigo el evento ya existe en el registro");
+            return;
+        }
+
         String sql = "INSERT INTO evento (codigo_evento, fecha_evento, tipo_evento, titulo_evento, ubicacion, cupo_maximo, costo_inscripcionn) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             //PASAR DE D/M/A -> A/M/D
@@ -69,29 +94,37 @@ public class BDconnection {
             int rowsAffected = ps.executeUpdate();
             mensajeQuery(rowsAffected);
         } catch (SQLException e) {
-            System.out.println("Ha ocurrido un error inseperado");
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inseperado");
             e.printStackTrace();
         } catch (ParseException ex) {
-            System.out.println("Formato invalido de hora");
+            JOptionPane.showMessageDialog(null, "Formato invalido de hora");
             ex.printStackTrace();
         } 
     }
 
-    public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
-        //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
+    private boolean buscarEmail(String email){
+        boolean existeElEmail = false;
         String sqlEmail = "SELECT COUNT(*) FROM participante WHERE correo_electronico = ?";
         try (PreparedStatement psEmail = connection.prepareStatement(sqlEmail)){
             psEmail.setString(1,email);
             ResultSet rs = psEmail.executeQuery();
             rs.next();
             if(rs.getInt(1) > 0){
-                JOptionPane.showMessageDialog(null, "El usuario ya existe en la base de datos");
-                return;
+               
+                existeElEmail = true;
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error inseperado");
         }
-        
+        return existeElEmail;
+    }
+    
+    public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
+        //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
+        if(buscarEmail(email) == true){
+             JOptionPane.showMessageDialog(null, "El correo electronico ya existe en el registro");
+            return;
+        }
         
         String sql = "INSERT INTO participante (nombre_participante, rol_participante, correo_electronico, institucion_procedencia) VALUES (?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -109,6 +142,29 @@ public class BDconnection {
     }
 
     public void inscripcion(String email, String codEvento, String tipoInscripcion) {
+        
+        if(buscarCodEvento(codEvento) == false){
+            JOptionPane.showMessageDialog(null, "El codigo del Evento no existe en el registro");
+            return;
+        } else if(buscarEmail(email) == false){
+            JOptionPane.showMessageDialog(null, "El correo electronico del participante no existe en el registro");
+            return;
+        }
+        
+        String sqlValidacion = "SELECT codigo_evento, correo_electronico FROM inscripcion WHERE codigo_evento = ? AND correo_electronico = ?";
+        try (PreparedStatement psValidar = connection.prepareStatement(sqlValidacion)){
+            psValidar.setString(1, codEvento);
+            psValidar.setString(2, email);
+            ResultSet rs = psValidar.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "El correo electronico: " + email + " ya ha sido inscrito al evento con codigo: " + codEvento);
+                return;
+            } 
+        } catch (SQLException e) {
+            System.out.println("Ha ocurrido un error inseperado");
+            e.printStackTrace();
+        }
+        
         String sql = "INSERT INTO inscripcion (codigo_evento, correo_electronico, tipo_inscripcion) VALUES (?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, codEvento);
