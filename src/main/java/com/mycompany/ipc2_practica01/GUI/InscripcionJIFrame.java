@@ -5,6 +5,7 @@
 package com.mycompany.ipc2_practica01.GUI;
 
 import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,6 +77,7 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("EVT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -143,13 +145,20 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
 
     private void btn_inscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_inscribirActionPerformed
         final String preFijoEvt = "EVT-";
-        String email = TF_email.getText();
-        String codEvento = preFijoEvt + TF_codEvento.getText();
-        String tipoInscripcion = CB_tipoInscripcion.getSelectedItem().toString();
-        
-        BDconnection con = new BDconnection();
-        con.connect();
-        con.inscripcion(email, codEvento, tipoInscripcion);
+        if(TF_codEvento.getText().trim().isEmpty() || TF_email.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los Campos");
+        } else {
+            String email = TF_email.getText();
+            String codEvento = preFijoEvt + TF_codEvento.getText();
+            String tipoInscripcion = CB_tipoInscripcion.getSelectedItem().toString();
+
+            BDconnection con = new BDconnection();
+            con.connect();
+            con.inscripcion(email, codEvento, tipoInscripcion);
+            
+            TF_codEvento.setText("");
+            TF_email.setText("");
+        }
     }//GEN-LAST:event_btn_inscribirActionPerformed
 
 
