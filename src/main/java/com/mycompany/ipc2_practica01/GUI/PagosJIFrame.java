@@ -85,6 +85,7 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("EVT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -155,6 +156,11 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
 
     private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
         final String preFijoEvt = "EVT-";
+        if(TF_codEvento.getText().trim().isEmpty() || TF_email.getText().trim().isEmpty() || TF_monto.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
+            return;
+        } 
+        
         try {
             String email = TF_email.getText();
             String codEvento = preFijoEvt + TF_codEvento.getText();
@@ -162,6 +168,7 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
             double monto = Double.parseDouble(TF_monto.getText());
             
             BDconnection con = new BDconnection();
+            con.connect();
             con.pago(email, codEvento, metodoPago, monto);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El monto debe ser un valor numerico");
