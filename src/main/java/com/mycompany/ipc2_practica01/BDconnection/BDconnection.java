@@ -52,12 +52,12 @@ public class BDconnection {
         }
     }
 
-    private boolean buscarCodEvento(String codEvento){
+    private boolean buscarCodigo(String codigo, String tabla, String tipoCodigo){
         boolean existeElCodigo = false;
-        String sqlCodEvento = "SELECT COUNT(*) FROM evento WHERE codigo_evento = ?";
-        try (PreparedStatement psCodEvento = connection.prepareStatement(sqlCodEvento)){
-            psCodEvento.setString(1, codEvento);
-            ResultSet rs = psCodEvento.executeQuery();
+        String sqlCodigo = "SELECT COUNT(*) FROM " + tabla +" WHERE " + tipoCodigo + " = ?";
+        try (PreparedStatement psCodigo = connection.prepareStatement(sqlCodigo)){
+            psCodigo.setString(1, codigo);
+            ResultSet rs = psCodigo.executeQuery();
             rs.next();
             if(rs.getInt(1) > 0){
                 existeElCodigo = true;
@@ -71,7 +71,7 @@ public class BDconnection {
     
     public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax, double costo) {
         //HAY QUE VERIFICAR SI EL CODIGO DE EVENTO YA EXISTE
-        if (buscarCodEvento(codEvento) == true) {
+        if (buscarCodigo(codEvento, "evento", "codigo_evento") == true) {
             JOptionPane.showMessageDialog(null, "El codigo el evento ya existe en el registro");
             return;
         }
@@ -102,9 +102,9 @@ public class BDconnection {
         } 
     }
 
-    private boolean buscarEmail(String email){
+    private boolean buscarEmail(String email, String tabla){
         boolean existeElEmail = false;
-        String sqlEmail = "SELECT COUNT(*) FROM participante WHERE correo_electronico = ?";
+        String sqlEmail = "SELECT COUNT(*) FROM "+ tabla + " WHERE correo_electronico = ?";
         try (PreparedStatement psEmail = connection.prepareStatement(sqlEmail)){
             psEmail.setString(1,email);
             ResultSet rs = psEmail.executeQuery();
@@ -121,7 +121,7 @@ public class BDconnection {
     
     public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
         //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
-        if(buscarEmail(email) == true){
+        if(buscarEmail(email, "participante") == true){
             JOptionPane.showMessageDialog(null, "El correo electronico ya existe en el registro");
             return;
         }
@@ -161,10 +161,10 @@ public class BDconnection {
     
     public void inscripcion(String email, String codEvento, String tipoInscripcion) {
         
-        if(buscarCodEvento(codEvento) == false){
+        if(buscarCodigo(codEvento, "evento", "codigo_evento") == false){
             JOptionPane.showMessageDialog(null, "El codigo del Evento no existe en el registro");
             return;
-        } else if(buscarEmail(email) == false){
+        } else if(buscarEmail(email, "participante") == false){
             JOptionPane.showMessageDialog(null, "El correo electronico del participante no existe en el registro");
             return;
         } else if(validarCorreoYcodEvento(email, codEvento, "inscripcion") == true){
@@ -189,10 +189,10 @@ public class BDconnection {
     public void pago(String email, String codEvento, String metodoPago, double monto) {
         double montoBD = 0;
         
-        if(buscarEmail(email) == false){
+        if(buscarEmail(email , "participante") == false){
             JOptionPane.showMessageDialog(null, "El correo electronico no se encuentra en el registro");
             return;
-        } else if(buscarCodEvento(codEvento) == false){
+        } else if(buscarCodigo(codEvento, "evento", "codigo_evento") == false){
             JOptionPane.showMessageDialog(null, "El codigo del evento no se encuentra en el registro");
             return;
         } else if(validarCorreoYcodEvento(email, codEvento, "pago") == true){
@@ -233,21 +233,29 @@ public class BDconnection {
     public void validarInscripcion() {
 
     }
-
+    
     public void registrarActividad(String codActividad, String codEvento, String tipoActividad, String titulo, String email, String horaInicio, String horaFin, int cupoMax) {
-        String sqlSelect = "SELECT  rol_participante FROM inscripcion WHERE correo_electronico = ?";
-        String sql = "INSERT INTO actividad (codigo_actividad, codigo_evento, correo_electronico, tipo_actividad, titulo_actividad, hora_inicio, hora_fin, cupo_maximo) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        boolean esParticipante = false;
         
+        if(buscarCodigo(codActividad, "actividad", "codigo_actividad") == true){
+            JOptionPane.showMessageDialog(null, "El codigo del evento ya existe en el registro");
+            return;
+        } else if (buscarCodigo(codEvento, "evento", "codigo_evento") == false){
+            JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
+            return;
+        } else if (buscarEmail(email, "inscripcion") == false){
+            JOptionPane.showMessageDialog(null, "El correo electronico del participante no existe en el registro");
+            return;
+        }
+        
+        String sqlSelect = "SELECT tipo_inscripcion FROM inscripcion WHERE correo_electronico = ?";   
         try (PreparedStatement ps = connection.prepareStatement(sqlSelect)){
             ps.setString(1, email);
-            
             try (ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
-                    String rol = rs.getString("rol_participante");
+                    String rol = rs.getString("tipo_inscripcion");
                     if("ASISTENTE".equals(rol)){
-                        esParticipante = true;
+                        JOptionPane.showMessageDialog(null, "No se le puede asignar esta actividad al participante, ya que es un ASISTENTE");
+                        return;
                     }
                 } else {
                     System.out.println("NO SE ENCONTRO EL USUARIO");
@@ -257,40 +265,37 @@ public class BDconnection {
             e.printStackTrace();
         }
         
-        if(esParticipante){
-            try (PreparedStatement ps = connection.prepareStatement(sql)) {
-                //Pasar de String a sql.date
-                SimpleDateFormat hInicio = new SimpleDateFormat("HH:mm");
-                SimpleDateFormat hFin = new SimpleDateFormat("HH:mm");
+        String sql = "INSERT INTO actividad (codigo_actividad, codigo_evento, correo_electronico, tipo_actividad, titulo_actividad, hora_inicio, hora_fin, cupo_maximo) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            //Pasar de String a sql.date
+            SimpleDateFormat hInicio = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat hFin = new SimpleDateFormat("HH:mm");
 
-                java.util.Date hInicioUtil = hInicio.parse(horaInicio);
-                java.util.Date hFinUtil = hFin.parse(horaFin);
+            java.util.Date hInicioUtil = hInicio.parse(horaInicio);
+            java.util.Date hFinUtil = hFin.parse(horaFin);
 
-                java.sql.Time horaInicioSQL = new java.sql.Time(hInicioUtil.getTime());
-                java.sql.Time horaFinSQL = new java.sql.Time(hFinUtil.getTime());
+            java.sql.Time horaInicioSQL = new java.sql.Time(hInicioUtil.getTime());
+            java.sql.Time horaFinSQL = new java.sql.Time(hFinUtil.getTime());
 
-                ps.setString(1, codActividad);
-                ps.setString(2, codEvento);
-                ps.setString(3, email);
-                ps.setString(4, tipoActividad);
-                ps.setString(5, titulo);
-                ps.setTime(6, horaInicioSQL);
-                ps.setTime(7, horaFinSQL);
-                ps.setInt(8, cupoMax);
+            ps.setString(1, codActividad);
+            ps.setString(2, codEvento);
+            ps.setString(3, email);
+            ps.setString(4, tipoActividad);
+            ps.setString(5, titulo);
+            ps.setTime(6, horaInicioSQL);
+            ps.setTime(7, horaFinSQL);
+            ps.setInt(8, cupoMax);
 
-                int rowsAffected = ps.executeUpdate();
-                mensajeQuery(rowsAffected);
-            } catch (SQLException e) {
-                System.out.println("Ha ocurrido un error inseperado");
-                e.printStackTrace();
-            } catch (ParseException ex) {
-                System.out.println("Formato invalido de hora");
-                ex.printStackTrace();
-            }
-        } else {
-            System.out.println("Es participante");
-        }
-        
+            int rowsAffected = ps.executeUpdate();
+            mensajeQuery(rowsAffected);
+        } catch (SQLException e) {
+            System.out.println("Ha ocurrido un error inseperado");
+            e.printStackTrace();
+        } catch (ParseException ex) {
+            System.out.println("Formato invalido de hora");
+            ex.printStackTrace();
+        } 
     }
 
     public void regristrarAsistencia(String email, String codEvento) {
