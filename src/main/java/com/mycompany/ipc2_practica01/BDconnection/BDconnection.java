@@ -52,21 +52,57 @@ public class BDconnection {
         }
     }
 
-    private boolean buscarCodigo(String codigo, String tabla, String tipoCodigo){
+    private boolean buscarCodigo(String codigo, String tabla, String tipoCodigo) {
         boolean existeElCodigo = false;
-        String sqlCodigo = "SELECT COUNT(*) FROM " + tabla +" WHERE " + tipoCodigo + " = ?";
-        try (PreparedStatement psCodigo = connection.prepareStatement(sqlCodigo)){
+        String sqlCodigo = "SELECT COUNT(*) FROM " + tabla + " WHERE " + tipoCodigo + " = ?";
+        try (PreparedStatement psCodigo = connection.prepareStatement(sqlCodigo)) {
             psCodigo.setString(1, codigo);
             ResultSet rs = psCodigo.executeQuery();
             rs.next();
-            if(rs.getInt(1) > 0){
+            if (rs.getInt(1) > 0) {
                 existeElCodigo = true;
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
         }
-        
+
         return existeElCodigo;
+    }
+    
+    
+    private boolean buscarEmail(String email, String tabla){
+        boolean existeElEmail = false;
+        String sqlEmail = "SELECT COUNT(*) FROM "+ tabla + " WHERE correo_electronico = ?";
+        try (PreparedStatement psEmail = connection.prepareStatement(sqlEmail)){
+            psEmail.setString(1,email);
+            ResultSet rs = psEmail.executeQuery();
+            rs.next();
+            if(rs.getInt(1) > 0){
+               
+                existeElEmail = true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inseperado");
+        }
+        return existeElEmail;
+    }
+    
+    private boolean validarCorreoYcodEvento(String email, String codEvento, String tabla){
+        boolean existeRegistro = false;
+        String sqlValidacion = "SELECT codigo_evento, correo_electronico FROM "+tabla+" WHERE codigo_evento = ? AND correo_electronico = ?";
+        try (PreparedStatement psValidar = connection.prepareStatement(sqlValidacion)){
+            psValidar.setString(1, codEvento);
+            psValidar.setString(2, email);
+            ResultSet rs = psValidar.executeQuery();
+            if(rs.next()){
+                existeRegistro = true;
+            } 
+        } catch (SQLException e) {
+            System.out.println("Ha ocurrido un error inseperado");
+            e.printStackTrace();
+        }
+        
+        return existeRegistro;
     }
     
     public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax, double costo) {
@@ -101,23 +137,6 @@ public class BDconnection {
             ex.printStackTrace();
         } 
     }
-
-    private boolean buscarEmail(String email, String tabla){
-        boolean existeElEmail = false;
-        String sqlEmail = "SELECT COUNT(*) FROM "+ tabla + " WHERE correo_electronico = ?";
-        try (PreparedStatement psEmail = connection.prepareStatement(sqlEmail)){
-            psEmail.setString(1,email);
-            ResultSet rs = psEmail.executeQuery();
-            rs.next();
-            if(rs.getInt(1) > 0){
-               
-                existeElEmail = true;
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inseperado");
-        }
-        return existeElEmail;
-    }
     
     public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
         //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
@@ -139,24 +158,6 @@ public class BDconnection {
             JOptionPane.showMessageDialog(null,"Ha ocurrido un error inseperado");
             e.printStackTrace();
         }
-    }
-
-    private boolean validarCorreoYcodEvento(String email, String codEvento, String tabla){
-        boolean existeRegistro = false;
-        String sqlValidacion = "SELECT codigo_evento, correo_electronico FROM "+tabla+" WHERE codigo_evento = ? AND correo_electronico = ?";
-        try (PreparedStatement psValidar = connection.prepareStatement(sqlValidacion)){
-            psValidar.setString(1, codEvento);
-            psValidar.setString(2, email);
-            ResultSet rs = psValidar.executeQuery();
-            if(rs.next()){
-                existeRegistro = true;
-            } 
-        } catch (SQLException e) {
-            System.out.println("Ha ocurrido un error inseperado");
-            e.printStackTrace();
-        }
-        
-        return existeRegistro;
     }
     
     public void inscripcion(String email, String codEvento, String tipoInscripcion) {
