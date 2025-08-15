@@ -135,7 +135,7 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Titulo de la Actividad:");
+        jLabel10.setText("Cupo Máximo:");
 
         TF_cupoMax.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -153,8 +153,10 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ACT -");
 
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("EVT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -294,9 +296,16 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
         final String preFijoAct = "ACT-";
         final String preFijoEvt = "EVT-";
         
+        if(TF_codActividad.getText().trim().isEmpty() || TF_codEvento.getText().trim().isEmpty() || TF_cupoMax.getText().trim().isEmpty() || TF_email.getText().trim().isEmpty()
+                || TF_titulo.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
+            return;
+        }
+        
         try {
-            String codActividad = preFijoAct + TF_codActividad;
-            String codEvento = preFijoEvt + TF_codEvento;
+            String codActividad = preFijoAct + TF_codActividad.getText();
+            String codEvento = preFijoEvt + TF_codEvento.getText();
+            System.out.println(codEvento);
             String tipoActividad = CB_tipoActividad.getSelectedItem().toString();
             String titulo = TF_titulo.getText();
             String email = TF_email.getText();
