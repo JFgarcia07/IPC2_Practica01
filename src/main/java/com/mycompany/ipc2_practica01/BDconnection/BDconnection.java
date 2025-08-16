@@ -298,11 +298,37 @@ public class BDconnection {
             ex.printStackTrace();
         } 
     }
-
-    public void regristrarAsistencia(String email, String codEvento) {
+    
+    
+    
+    public void regristrarAsistencia(String email, String codActividad) {
+        if(buscarEmail(email,"participante") == false){
+            JOptionPane.showMessageDialog(null, "El correo electronico no existe en el registro");
+            return;
+        } else if (buscarCodigo(codActividad, "actividad", "codigo_actividad") == false){
+            JOptionPane.showMessageDialog(null, "El codigo de la actividad no existe en el registro");
+            return;
+        }
+        
+        String sqlRol = "SELECT correo_electronico FROM actividad WHERE correo_electronico = ?";
+        try (PreparedStatement psRol = connection.prepareStatement(sqlRol)){
+            psRol.setString(1,email);
+            try (ResultSet rs = psRol.executeQuery()){
+                if(rs.next()){
+                    JOptionPane.showMessageDialog(null, "El correo del usuario no es un asistente");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("HA OCURRIDO UN ERROR INESPERADO");
+            }
+        } catch (SQLException ex) {
+            System.out.println("HA OCURRIDO UN ERROR INESPERADO");
+        }
+        
+        
         String sql = "INSERT INTO asistencia (codigo_actividad, correo_electronico) VALUES (?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, codEvento);
+            ps.setString(1, codActividad);
             ps.setString(2, email);
 
             int rowsAffected = ps.executeUpdate();
