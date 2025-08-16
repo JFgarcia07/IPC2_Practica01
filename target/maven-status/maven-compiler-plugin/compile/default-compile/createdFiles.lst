@@ -1,4 +1,5 @@
 com/mycompany/ipc2_practica01/GUI/PagosJIFrame$1.class
+com/mycompany/ipc2_practica01/GUI/ValidarInscripcionJIFrame$1.class
 com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame$1.class
 com/mycompany/ipc2_practica01/GUI/InscripcionJIFrame$2.class
 com/mycompany/ipc2_practica01/GUI/PagosJIFrame.class
@@ -18,10 +19,13 @@ com/mycompany/ipc2_practica01/GUI/InscripcionJIFrame$1.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroAsistenciaJIF$2.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$1.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIF/RegistroAsistenciaJIF.class
+com/mycompany/ipc2_practica01/GUI/TriForceEvents$6.class
+com/mycompany/ipc2_practica01/GUI/ValidarInscripcionJIFrame$2.class
 com/mycompany/ipc2_practica01/GUI/PagosJIFrame$2.class
 com/mycompany/ipc2_practica01/IPC2_Practica01.class
 com/mycompany/ipc2_practica01/GUI/CertificadoJIFrame.class
 com/mycompany/ipc2_practica01/GUI/RegistrosJIFrame$1.class
+com/mycompany/ipc2_practica01/GUI/ValidarInscripcionJIFrame.class
 com/mycompany/ipc2_practica01/GUI/LimitadorCaracteres.class
 com/mycompany/ipc2_practica01/crearCertificado.class
 com/mycompany/ipc2_practica01/GUI/TriForceEvents$3.class

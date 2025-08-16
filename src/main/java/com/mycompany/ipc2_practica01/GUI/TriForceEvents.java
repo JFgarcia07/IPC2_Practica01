@@ -17,7 +17,7 @@ public class TriForceEvents extends javax.swing.JFrame {
      */
     public TriForceEvents() {
         initComponents();
-        
+        this.setResizable(false);
     }
 
     /**
@@ -35,6 +35,7 @@ public class TriForceEvents extends javax.swing.JFrame {
         btn_Reportes = new javax.swing.JButton();
         btn_Pagos = new javax.swing.JButton();
         btn_Certificado = new javax.swing.JButton();
+        btn_validarInscripcion = new javax.swing.JButton();
         MenuPrincipal = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,14 +81,22 @@ public class TriForceEvents extends javax.swing.JFrame {
             }
         });
 
+        btn_validarInscripcion.setText("Validar Inscrip.");
+        btn_validarInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_validarInscripcionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcionesLayout = new javax.swing.GroupLayout(panelOpciones);
         panelOpciones.setLayout(panelOpcionesLayout);
         panelOpcionesLayout.setHorizontalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionesLayout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_Reportes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_validarInscripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_Reportes, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                     .addGroup(panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btn_Registros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_Inscripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -98,17 +107,19 @@ public class TriForceEvents extends javax.swing.JFrame {
         panelOpcionesLayout.setVerticalGroup(
             panelOpcionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcionesLayout.createSequentialGroup()
-                .addGap(138, 138, 138)
+                .addGap(221, 221, 221)
                 .addComponent(btn_Registros, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(btn_Pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(btn_Inscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
+                .addComponent(btn_validarInscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_Certificado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(btn_Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(249, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         MenuPrincipal.setBackground(new java.awt.Color(0, 0, 0));
@@ -195,6 +206,12 @@ public class TriForceEvents extends javax.swing.JFrame {
         certificado.setVisible(true);
     }//GEN-LAST:event_btn_CertificadoActionPerformed
 
+    private void btn_validarInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_validarInscripcionActionPerformed
+        ValidarInscripcionJIFrame validarInscrip = new ValidarInscripcionJIFrame();
+        MenuPrincipal.add(validarInscrip);
+        validarInscrip.setVisible(true);
+    }//GEN-LAST:event_btn_validarInscripcionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -227,6 +244,7 @@ public class TriForceEvents extends javax.swing.JFrame {
     private javax.swing.JButton btn_Pagos;
     private javax.swing.JButton btn_Registros;
     private javax.swing.JButton btn_Reportes;
+    private javax.swing.JButton btn_validarInscripcion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panelOpciones;

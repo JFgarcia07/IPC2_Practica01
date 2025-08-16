@@ -236,8 +236,26 @@ public class BDconnection {
         } 
     }
 
-    public void validarInscripcion() {
-
+    public void validarInscripcion(String email, String codEvento) {
+        if(buscarEmail(email, "inscripcion") == false){
+            JOptionPane.showMessageDialog(null, "El correo electronico no existe en el sistema");
+            return;
+        } else if (buscarCodigo(codEvento, "evento", "codigo_evento") == false) {
+            JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
+            return;
+        }
+        
+        String sql = "INSERT INTO validarInscripcion (correo_electronico, codigo_evento) VALUES (?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setString(1, email);
+            ps.setString(2, codEvento);
+            
+            int rowsAffected = ps.executeUpdate();
+            mensajeQuery(rowsAffected);
+        } catch (SQLException e) {
+            System.out.println("Ha ocurrido un error inesperado");
+            e.printStackTrace();
+        }
     }
     
     public void registrarActividad(String codActividad, String codEvento, String tipoActividad, String titulo, String email, String horaInicio, String horaFin, int cupoMax) {
