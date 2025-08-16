@@ -4,6 +4,9 @@
  */
 package com.mycompany.ipc2_practica01.GUI;
 
+import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jgarcia07
@@ -16,7 +19,7 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
     public CertificadoJIFrame() {
         initComponents();
         
-        TF_codEvento.addKeyListener(new LimitadorCaracteres(7));
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(8));
         TF_email.addKeyListener(new LimitadorCaracteres(50));
     }
 
@@ -75,6 +78,7 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Emitir Certificado");
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("EVT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -145,7 +149,15 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TF_codEventoActionPerformed
 
     private void btn_certificadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_certificadoActionPerformed
-        //TODO
+        final String preFijoEvento = "EVT-";
+        if(TF_codEvento.getText().trim().isEmpty() || TF_email.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
+            return;
+        }
+        
+        BDconnection con = new BDconnection();
+        con.connect();
+        con.certificado(TF_email.getText(), preFijoEvento+TF_codEvento.getText());
     }//GEN-LAST:event_btn_certificadoActionPerformed
 
 
