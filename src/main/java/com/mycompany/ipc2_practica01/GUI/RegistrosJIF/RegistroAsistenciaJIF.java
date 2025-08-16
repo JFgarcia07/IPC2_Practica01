@@ -6,6 +6,7 @@ package com.mycompany.ipc2_practica01.GUI.RegistrosJIF;
 
 import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
 import com.mycompany.ipc2_practica01.GUI.LimitadorCaracteres;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,6 +77,7 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ACT -");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -145,13 +147,18 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_registrarAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarAsistenciaActionPerformed
+        if(TF_codActividad.getText().trim().isEmpty() || TF_email.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            return;
+        }
+        
         final String preFijoAct = "ACT-";
         String email = TF_email.getText();
-        String codEvento = preFijoAct + TF_codActividad.getText();
+        String codActividad = preFijoAct + TF_codActividad.getText();
         
         BDconnection con = new BDconnection();
         con.connect();
-        con.regristrarAsistencia(email, codEvento);
+        con.regristrarAsistencia(email, codActividad);
     }//GEN-LAST:event_btn_registrarAsistenciaActionPerformed
 
 
