@@ -4,6 +4,7 @@
  */
 package com.mycompany.ipc2_practica01.BDconnection;
 
+import com.mycompany.ipc2_practica01.crearCertificado;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +32,8 @@ public class BDconnection {
 
     private Connection connection;
 
+    private List<String> certificados = new ArrayList<>();
+    
     public void connect() {
         try {
 
@@ -339,12 +344,66 @@ public class BDconnection {
         }
     }
 
+    private String nombreParticipante(String email){
+        String nombre = "";
+        String sql = "SELECT nombre_participante FROM participante WHERE correo_electronico = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setString(1,email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if(rs.next()){
+                    nombre = rs.getString("nombre_participante");
+                }
+            } 
+        } catch (SQLException e) {
+            System.out.println("HA OCURRIDO UN ERROR INESPERADO");
+        }
+        return nombre;
+    }
+    
+    private String nombreEvento(String codEvento){
+        String nombreEvento = null;
+        String sql = "SELECT titulo_evento FROM evento WHERE codigo_evento = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setString(1,codEvento);
+            try (ResultSet rs = ps.executeQuery()) {
+                if(rs.next()){
+                    nombreEvento = rs.getString("titulo_evento");
+                }
+            } 
+        } catch (SQLException e) {
+            System.out.println("HA OCURRIDO UN ERROR INESPERADO");
+        }
+        return nombreEvento;
+    }
+    
     public void certificado(String email, String codEvento) {
+        if(buscarEmail(email,"asistencia") == false){
+            JOptionPane.showMessageDialog(null, "El correo no existe en el registro");
+            return;
+        } else if (buscarCodigo(codEvento, "evento", "codigo_evento") == false) {
+            JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
+            return;
+        } else if (buscarEmail(email, "certificado") || buscarCodigo(codEvento, "certificado", "codigo_evento")) {
+            JOptionPane.showMessageDialog(null, "Ya se ha emitido un certificado para el participante: " + email + " al evento: " + codEvento);
+            return;
+        }
+        
         String sql = "INSERT INTO certificado (codigo_evento, correo_electronico) VALUES (?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, codEvento);
             ps.setString(2, email);
 
+            String participante = nombreParticipante(email);
+            String nombreEvento = nombreEvento(codEvento);
+
+            String ruta = "/home/jgarcia07/NetBeansProjects/IPC2_Practica01/Reportes";
+            String nombreArchivo =  "Certificado: " + participante + ".html";
+            
+            System.out.println(nombreArchivo);
+            
+            crearCertificado certificado = new crearCertificado();
+            certificado.emitirCertificado(ruta, nombreArchivo, participante, nombreEvento);
+            
             int rowsAffected = ps.executeUpdate();
             mensajeQuery(rowsAffected);
         } catch (SQLException e) {
