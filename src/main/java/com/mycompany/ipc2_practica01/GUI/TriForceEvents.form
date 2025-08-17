@@ -58,12 +58,11 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btn_validarInscripcion" max="32767" attributes="0"/>
                       <Component id="btn_Reportes" alignment="0" pref="131" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btn_Registros" max="32767" attributes="0"/>
-                          <Component id="btn_Inscripcion" max="32767" attributes="0"/>
-                          <Component id="btn_Pagos" alignment="0" max="32767" attributes="0"/>
-                          <Component id="btn_Certificado" alignment="1" pref="131" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="btn_Registros" max="32767" attributes="0"/>
+                      <Component id="btn_Inscripcion" max="32767" attributes="0"/>
+                      <Component id="btn_Pagos" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_Certificado" alignment="1" pref="131" max="32767" attributes="0"/>
+                      <Component id="btn_subirArchivo" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="39" max="32767" attributes="0"/>
               </Group>
@@ -72,7 +71,9 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                  <Component id="btn_subirArchivo" min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_Registros" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btn_Pagos" min="-2" pref="37" max="-2" attributes="0"/>
@@ -136,6 +137,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_validarInscripcionActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_subirArchivo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Subir Archivo"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_subirArchivoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
