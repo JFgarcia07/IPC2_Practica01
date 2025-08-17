@@ -47,6 +47,10 @@ public class BDconnection {
         }
     }
 
+    /**
+     * 
+     * @param rows 
+     */
     private void mensajeQuery(int rows) {
         if (rows > 0) {
             System.out.println("Datos ingresador correctamente");
@@ -57,6 +61,13 @@ public class BDconnection {
         }
     }
 
+    /**
+     * 
+     * @param codigo
+     * @param tabla
+     * @param tipoCodigo
+     * @return 
+     */
     private boolean buscarCodigo(String codigo, String tabla, String tipoCodigo) {
         boolean existeElCodigo = false;
         String sqlCodigo = "SELECT COUNT(*) FROM " + tabla + " WHERE " + tipoCodigo + " = ?";
@@ -74,7 +85,12 @@ public class BDconnection {
         return existeElCodigo;
     }
     
-    
+    /**
+     * 
+     * @param email
+     * @param tabla
+     * @return 
+     */
     private boolean buscarEmail(String email, String tabla){
         boolean existeElEmail = false;
         String sqlEmail = "SELECT COUNT(*) FROM "+ tabla + " WHERE correo_electronico = ?";
@@ -92,6 +108,13 @@ public class BDconnection {
         return existeElEmail;
     }
     
+    /**
+     * 
+     * @param email
+     * @param codEvento
+     * @param tabla
+     * @return 
+     */
     private boolean validarCorreoYcodEvento(String email, String codEvento, String tabla){
         boolean existeRegistro = false;
         String sqlValidacion = "SELECT codigo_evento, correo_electronico FROM "+tabla+" WHERE codigo_evento = ? AND correo_electronico = ?";
@@ -110,6 +133,16 @@ public class BDconnection {
         return existeRegistro;
     }
     
+    /**
+     * 
+     * @param codEvento
+     * @param fecha
+     * @param tipoEvento
+     * @param tituloEvento
+     * @param ubicacion
+     * @param cupoMax
+     * @param costo 
+     */
     public void registrarEvento(String codEvento, String fecha, String tipoEvento, String tituloEvento, String ubicacion, int cupoMax, double costo) {
         //HAY QUE VERIFICAR SI EL CODIGO DE EVENTO YA EXISTE
         if (buscarCodigo(codEvento, "evento", "codigo_evento") == true) {
@@ -143,6 +176,13 @@ public class BDconnection {
         } 
     }
     
+    /**
+     * 
+     * @param nombre
+     * @param tipoParticipante
+     * @param institucion
+     * @param email 
+     */
     public void registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
         //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
         if(buscarEmail(email, "participante") == true){
@@ -165,6 +205,12 @@ public class BDconnection {
         }
     }
     
+    /**
+     * 
+     * @param email
+     * @param codEvento
+     * @param tipoInscripcion 
+     */
     public void inscripcion(String email, String codEvento, String tipoInscripcion) {
         
         if(buscarCodigo(codEvento, "evento", "codigo_evento") == false){
@@ -192,6 +238,13 @@ public class BDconnection {
         }
     }
 
+    /**
+     * 
+     * @param email
+     * @param codEvento
+     * @param metodoPago
+     * @param monto 
+     */
     public void pago(String email, String codEvento, String metodoPago, double monto) {
         double montoBD = 0;
         
@@ -236,6 +289,11 @@ public class BDconnection {
         } 
     }
 
+    /**
+     * 
+     * @param email
+     * @param codEvento 
+     */
     public void validarInscripcion(String email, String codEvento) {
         if(buscarEmail(email, "inscripcion") == false){
             JOptionPane.showMessageDialog(null, "El correo electronico no existe en el sistema");
@@ -258,6 +316,17 @@ public class BDconnection {
         }
     }
     
+    /**
+     * 
+     * @param codActividad
+     * @param codEvento
+     * @param tipoActividad
+     * @param titulo
+     * @param email
+     * @param horaInicio
+     * @param horaFin
+     * @param cupoMax 
+     */
     public void registrarActividad(String codActividad, String codEvento, String tipoActividad, String titulo, String email, String horaInicio, String horaFin, int cupoMax) {
         
         if(buscarCodigo(codActividad, "actividad", "codigo_actividad") == true){
@@ -292,7 +361,7 @@ public class BDconnection {
         String sql = "INSERT INTO actividad (codigo_actividad, codigo_evento, correo_electronico, tipo_actividad, titulo_actividad, hora_inicio, hora_fin, cupo_maximo) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            //Pasar de String a sql.date
+            //PASAR DE STRING A DATE
             SimpleDateFormat hInicio = new SimpleDateFormat("HH:mm");
             SimpleDateFormat hFin = new SimpleDateFormat("HH:mm");
 
@@ -322,8 +391,11 @@ public class BDconnection {
         } 
     }
     
-    
-    
+    /**
+     * 
+     * @param email
+     * @param codActividad 
+     */
     public void regristrarAsistencia(String email, String codActividad) {
         if(buscarEmail(email,"participante") == false){
             JOptionPane.showMessageDialog(null, "El correo electronico no existe en el registro");
@@ -362,6 +434,11 @@ public class BDconnection {
         }
     }
 
+    /**
+     * 
+     * @param email
+     * @return 
+     */
     private String nombreParticipante(String email){
         String nombre = "";
         String sql = "SELECT nombre_participante FROM participante WHERE correo_electronico = ?";
@@ -378,6 +455,11 @@ public class BDconnection {
         return nombre;
     }
     
+    /**
+     * 
+     * @param codEvento
+     * @return 
+     */
     private String nombreEvento(String codEvento){
         String nombreEvento = null;
         String sql = "SELECT titulo_evento FROM evento WHERE codigo_evento = ?";
@@ -394,6 +476,11 @@ public class BDconnection {
         return nombreEvento;
     }
     
+    /**
+     * 
+     * @param email
+     * @param codEvento 
+     */
     public void certificado(String email, String codEvento) {
         if(buscarEmail(email,"asistencia") == false){
             JOptionPane.showMessageDialog(null, "El correo no existe en el registro");
