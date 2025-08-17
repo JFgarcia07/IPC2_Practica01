@@ -20,6 +20,11 @@ public class archivoEntrada {
         con.connect();
     }
     
+    /**
+     * METODO QUE LEE EL ARCHIVO DE TEXTO CON LAS INSTRUCCIONES PARA HACER LOS INSERTS
+     * Y CADA LINEA LAS COLOCA EN UN ARRAYLIST PARA PODER ANALIZARLOS DE MEJOR MANERA
+     * @param archivo 
+     */
     public void leerArchivo(File archivo){
         ArrayList<String> lineas = new ArrayList<>();
         try (BufferedReader entrada = new BufferedReader(new FileReader(archivo))){
@@ -34,6 +39,11 @@ public class archivoEntrada {
         interprete(lineas);
     }
     
+    /**
+     * METODO QUE LEE LINEA POR LINEA PARA SABER QUE TIPO DE INSTRUCCION HAY QUE REALIZAR 
+     * ASI MISMO SEPARA EL TIPO DE INSTRUCCION DE LOS PARAMETROS DE LA INSTRUCCION
+     * @param contenido 
+     */
     private void interprete(ArrayList<String> contenido){
         String instruccion;
         String parametros;
@@ -60,6 +70,12 @@ public class archivoEntrada {
         }
     }
     
+    /**
+     * RECONOCE QUE TIPO DE INSERT HAY QUE HACER PARA SUBIR LA INFORMACION A LA BASE DE DATOS
+     * Y MANDA A LLAMAR EL METODO QUE SE ENCARGA DE HACER EL INSERT DEPENDIENDO DE LA INSTRUCCION
+     * @param tipo
+     * @param parametros 
+     */
     private void tipoInsert(String tipo, String parametros){
         switch(tipo){
             case "REGISTRO_EVENTO":
@@ -91,6 +107,12 @@ public class archivoEntrada {
         }
     }
     
+    /**
+     * METODO QUE SEPARA LOS PARAMETROS PARA PODER ANALIZARLOS UNO POR UNO
+     * SI SE ENCUENTRA ALGUN PARAMETRO VACIO, HARA SE DEVUELVA UN VALOR NULL
+     * @param parametros
+     * @return parametrosList
+     */
     private String[] separarParametros(String parametros) {
         String[] parametrosList = parametros.split(",");
 
@@ -112,7 +134,12 @@ public class archivoEntrada {
         return parametrosList;
     }
 
-    
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA EL EVENTO
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertEvento(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los parametros");
@@ -132,6 +159,12 @@ public class archivoEntrada {
         con.registrarEvento(codEvento, fecha, tipoEvento, tituloEvento, ubicacion, cupoMax, costo);
     }
     
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA EL PARTICIPANTE
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertParticipante(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
@@ -146,7 +179,12 @@ public class archivoEntrada {
         con.registrarParticipante(nombre, tipoParticipante, institucion, email);
     }
     
-    
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA LA INSCRIPCION
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertInscripcion(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
@@ -160,6 +198,12 @@ public class archivoEntrada {
         con.inscripcion(email, codEvento, tipoInscripcion);
     }
     
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA EL PAGO
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertPago(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
@@ -174,6 +218,12 @@ public class archivoEntrada {
         con.pago(email, codEvento, metodoPago, monto);
     }
     
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA LA VALIDACION
+     * DE LA INSCRIPCION SI LA LISTA DE PARAMETROS ES NULL, ESTO 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertValidarInscrip(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
@@ -186,6 +236,12 @@ public class archivoEntrada {
         con.validarInscripcion(email, codEvento);
     }
     
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA LA ACTIVIDAD
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertActividad(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
@@ -204,6 +260,12 @@ public class archivoEntrada {
         con.registrarActividad(codActividad, codEvento, tipoActividad, titulo, email, horaInicio, horaFin, cupoMax);
     }
     
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA LA ASISTENCIA
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertAsistencia(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
@@ -216,6 +278,12 @@ public class archivoEntrada {
         con.regristrarAsistencia(email, codActividad);
     }
     
+    /**
+     * METODO QUE SE ENCARGA DE HACER EL INSERT PARA EL EVENTO
+     * SI LA LISTA DE PARAMETROS ES NULL, ESTO QUIERE DECIR QUE 
+     * LOS PARAMETROS ESTAN INCOMPLETOS ENTONCES SE OMITARA
+     * @param parametros 
+     */
     private void insertCertificado(String[] parametros){
         if(parametros == null){
             System.out.println("No tiene todos los campos");
