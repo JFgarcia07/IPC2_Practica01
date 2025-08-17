@@ -4,7 +4,7 @@
  */
 package com.mycompany.ipc2_practica01.BDconnection;
 
-import com.mycompany.ipc2_practica01.crearCertificado;
+import com.mycompany.ipc2_practica01.crearHTML;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,7 +30,9 @@ public class BDconnection {
 
     private Connection connection;
 
-    private List<String> certificados = new ArrayList<>();
+    private crearHTML html = new crearHTML();
+    private String ruta = "/home/jgarcia07/NetBeansProjects/IPC2_Practica01/Reportes";
+    
     
     public void connect() {
         try {
@@ -48,7 +48,7 @@ public class BDconnection {
     }
 
     /**
-     * 
+     * FUNCION PARA MENSAJE DEL INSERT
      * @param rows 
      */
     private void mensajeQuery(int rows) {
@@ -62,7 +62,9 @@ public class BDconnection {
     }
 
     /**
-     * 
+     * FUNCION QUE BUSCARA UN CODIGO EN UNA TABLA DE LA BASE DE DATOS PARA VERIFICAR SI 
+     * EXISTE, YA SEA PARA VALIDAR QUE SE PUEDA HACER EL INSERT O BIEN QUE EL INSERT NO 
+     * SEA REPETIDO
      * @param codigo
      * @param tabla
      * @param tipoCodigo
@@ -86,7 +88,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * FUNCION  QUE BUSCARA UN EMAIL EN UNA TABLA DE LA BASE DE DATOS PARA VERIFICAR SI 
+     * EXISTE, YA SEA PARA VALIDAR QUE SE PUEDA HACER EL INSERT O BIEN QUE EL INSERT NO 
+     * SEA REPETIDO
      * @param email
      * @param tabla
      * @return 
@@ -109,7 +113,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * FUNCION QUE BUSCARA UN CODIGO Y UN EMAIL EN UNA TABLA DE LA BASE DE DATOS PARA VERIFICAR SI 
+     * EXISTE, YA SEA PARA VALIDAR QUE SE PUEDA HACER EL INSERT O BIEN QUE EL INSERT NO 
+     * SEA REPETIDO
      * @param email
      * @param codEvento
      * @param tabla
@@ -134,7 +140,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA EL EVENTO, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param codEvento
      * @param fecha
      * @param tipoEvento
@@ -177,7 +185,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA EL PARTICIPANTE, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param nombre
      * @param tipoParticipante
      * @param institucion
@@ -206,7 +216,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA LA INSCRIPCION, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param email
      * @param codEvento
      * @param tipoInscripcion 
@@ -239,7 +251,9 @@ public class BDconnection {
     }
 
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA EL PAGO, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param email
      * @param codEvento
      * @param metodoPago
@@ -290,7 +304,9 @@ public class BDconnection {
     }
 
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA LA VALIDACION DE LA INSCRIPCION, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param email
      * @param codEvento 
      */
@@ -317,7 +333,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA LA ACTIVIDAD, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param codActividad
      * @param codEvento
      * @param tipoActividad
@@ -392,7 +410,9 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * METODO QUE REALIZA EL INSERT PARA LA ASISTENCIA, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * @param email
      * @param codActividad 
      */
@@ -435,7 +455,8 @@ public class BDconnection {
     }
 
     /**
-     * 
+     * FUNCION QUE BUSCARA EL NOMBRE GRACIAS AL EMAIL, PARA COLOCAR EL NOMBRE DEL PARTICIPANTE
+     * EN EL CERTIFICADO
      * @param email
      * @return 
      */
@@ -456,7 +477,8 @@ public class BDconnection {
     }
     
     /**
-     * 
+     * FUNCION QUE BUSCARA EL NOMBRE DEL EVENTO GRACIAS AL CODIGO DEL MISMO, PARA COLOCAR EL NOMBRE DEL
+     * EVENTO EN EL CERTIFICADO
      * @param codEvento
      * @return 
      */
@@ -477,7 +499,11 @@ public class BDconnection {
     }
     
     /**
+     * METODO QUE REALIZA EL INSERT PARA EL CERTIFICADO, CON SUS RESPECTIVAS VALIDACIONES 
+     * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
+     * INYECTION
      * 
+     * ASI MISMO CREA UN ARCHIVO HTML DEL CERTIFICADO EN LA CARPETA DE REPORTES
      * @param email
      * @param codEvento 
      */
@@ -501,18 +527,54 @@ public class BDconnection {
             String participante = nombreParticipante(email);
             String nombreEvento = nombreEvento(codEvento);
 
-            String ruta = "/home/jgarcia07/NetBeansProjects/IPC2_Practica01/Reportes";
-            String nombreArchivo =  "Certificado: " + participante + ".html";
+           
+            String nombreCertificado =  "Certificado: " + participante + ".html";
             
-            System.out.println(nombreArchivo);
-            
-            crearCertificado certificado = new crearCertificado();
-            certificado.emitirCertificado(ruta, nombreArchivo, participante, nombreEvento);
+            html.emitirCertificado(ruta, nombreCertificado, participante, nombreEvento);
             
             int rowsAffected = ps.executeUpdate();
             mensajeQuery(rowsAffected);
         } catch (SQLException e) {
             System.out.println("Ha ocurrido un error inseperado");
+            e.printStackTrace();
+        }
+    }
+    
+    public void reporteParticipantes(){
+        String sql = "SELECT * FROM participante";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            
+            String nombreArchivo =  "Reporte De Participantes.html";
+            
+            html.reporte(ruta, nombreArchivo, "Reporte de Participante",rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void reporteActividades(){
+        String sql = "SELECT * FROM actividad";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            
+            String nombreArchivo =  "Reporte De Actividades.html";
+            
+            html.reporte(ruta, nombreArchivo, "Reporte de Actividades",rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void reporteEventos(){
+        String sql = "SELECT * FROM evento";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ResultSet rs = ps.executeQuery();
+            
+            String nombreArchivo =  "Reporte De Eventos.html";
+            
+            html.reporte(ruta, nombreArchivo, "Reporte de Eventos",rs);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

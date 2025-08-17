@@ -201,7 +201,9 @@ public class TriForceEvents extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_InscripcionActionPerformed
 
     private void btn_ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReportesActionPerformed
-        // TODO add your handling code here:
+        ReportesJIFrame reporte = new ReportesJIFrame();
+        MenuPrincipal.add(reporte);
+        reporte.setVisible(true);
     }//GEN-LAST:event_btn_ReportesActionPerformed
 
     private void btn_PagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_PagosActionPerformed
