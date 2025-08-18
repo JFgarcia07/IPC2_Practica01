@@ -175,7 +175,13 @@ public class RegistroParticipanteJIF extends javax.swing.JInternalFrame {
             String email = TF_email.getText();
             
             con.connect();
-            con.registrarParticipante(nombre, tipoParticipante, institucion, email);
+            int respuesta = con.registrarParticipante(nombre, tipoParticipante, institucion, email);
+            
+            if(respuesta == 0){
+                JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+            } else if (respuesta == 1){
+                JOptionPane.showMessageDialog(null, "El correo electronico ya existe en el registro");
+            }
         }
     }//GEN-LAST:event_btn_registrarParticipanteActionPerformed
 

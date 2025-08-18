@@ -7,6 +7,7 @@ package com.mycompany.ipc2_practica01.GUI;
 import com.mycompany.ipc2_practica01.archivoEntrada;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -99,8 +100,17 @@ public class archivoEntradaJIFrame extends javax.swing.JInternalFrame {
         if(resultado == JFileChooser.APPROVE_OPTION){
             File archivosSeleccionado = seleccionador.getSelectedFile();
             archivoEntrada entrada = new archivoEntrada();
-            System.out.println("Archivo cargado");
-            entrada.leerArchivo(archivosSeleccionado);
+            
+            Runnable tarea = () -> {
+                System.out.println("Archivo cargado");
+                entrada.leerArchivo(archivosSeleccionado);
+                
+                SwingUtilities.invokeLater(() -> {
+                    System.out.println("Archivo leído correctamente");
+                });
+        };
+            
+        new Thread(tarea).start();
         } else {
             System.out.println("Archivo no cargado");
         }

@@ -5,6 +5,7 @@
 package com.mycompany.ipc2_practica01.GUI;
 
 import com.mycompany.ipc2_practica01.BDconnection.BDconnection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -110,19 +111,27 @@ public class ReportesJIFrame extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+   private void mensajeQuery(int respuesta){
+       if(respuesta == 0){
+           JOptionPane.showMessageDialog(null, "Reporte Creado Correctamente");
+       } else {
+           JOptionPane.showMessageDialog(null, "Ha Ocurrido un Error al Crear el Reporte");
+       }
+   }
+    
     private void btn_ReporteParticipantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteParticipantesActionPerformed
         con.connect();
-        con.reporteParticipantes();
+        mensajeQuery(con.reporteParticipantes());
     }//GEN-LAST:event_btn_ReporteParticipantesActionPerformed
 
     private void btn_ReporteActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteActividadActionPerformed
         con.connect();
-        con.reporteActividades();
+        mensajeQuery(con.reporteActividades());
     }//GEN-LAST:event_btn_ReporteActividadActionPerformed
 
     private void btn_ReporteEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReporteEventoActionPerformed
         con.connect();
-        con.reporteEventos();
+        mensajeQuery(con.reporteEventos());
     }//GEN-LAST:event_btn_ReporteEventoActionPerformed
 
 

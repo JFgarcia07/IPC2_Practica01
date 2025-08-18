@@ -169,7 +169,23 @@ public class PagosJIFrame extends javax.swing.JInternalFrame {
             
             BDconnection con = new BDconnection();
             con.connect();
-            con.pago(email, codEvento, metodoPago, monto);
+            int respuesta = con.pago(email, codEvento, metodoPago, monto);
+            
+            switch (respuesta) {
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null, "El correo electronico no se encuentra en el registro");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "El codigo del evento no se encuentra en el registro");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "El correo electronico: " + email + " ya ha pagado su inscripcion al evento con codigo: " + codEvento);
+                    break;
+            }
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "El monto debe ser un valor numerico");
         }

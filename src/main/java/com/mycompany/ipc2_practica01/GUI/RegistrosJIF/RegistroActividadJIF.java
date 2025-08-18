@@ -115,7 +115,7 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
 
         CB_horaIncio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" }));
 
-        CB_minutoIncio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        CB_minutoIncio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
 
         labelhoraInicio.setForeground(new java.awt.Color(255, 255, 255));
         labelhoraInicio.setText(":");
@@ -130,7 +130,7 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
         labelhoraFin.setForeground(new java.awt.Color(255, 255, 255));
         labelhoraFin.setText(":");
 
-        CB_minutoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        CB_minutoFin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
 
         jLabel10.setBackground(new java.awt.Color(255, 255, 255));
         jLabel10.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
@@ -315,8 +315,25 @@ public class RegistroActividadJIF extends javax.swing.JInternalFrame {
             
             BDconnection con = new BDconnection();
             con.connect();
-            con.registrarActividad(codActividad, codEvento, tipoActividad, titulo, email, horaInicio, horaFin, cupo);
+            int respuesta = con.registrarActividad(codActividad, codEvento, tipoActividad, titulo, email, horaInicio, horaFin, cupo);
             
+            switch(respuesta){
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null, "El codigo del evento ya existe en el registro");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "El correo electronico del participante no existe en el registro");
+                    break;
+                case 4:
+                    JOptionPane.showMessageDialog(null, "No se le puede asignar esta actividad al participante, ya que es un ASISTENTE");
+                    break;
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "EL CUPO MAXIMO DEBE SER UN VALOR NUMERICO ENTERO");
         }

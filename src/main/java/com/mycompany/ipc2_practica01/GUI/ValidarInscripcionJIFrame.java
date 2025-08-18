@@ -134,7 +134,19 @@ public class ValidarInscripcionJIFrame extends javax.swing.JInternalFrame {
         
         BDconnection con = new BDconnection();
         con.connect();
-        con.validarInscripcion(TF_email.getText(), preFijoEvento+TF_codEvento.getText());
+        int respuesta = con.validarInscripcion(TF_email.getText(), preFijoEvento+TF_codEvento.getText());
+        
+        switch(respuesta){
+            case 0:
+                JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "El correo electronico no existe en el sistema");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
+                break;
+        }
     }//GEN-LAST:event_btn_validarInscripActionPerformed
 
 

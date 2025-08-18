@@ -157,7 +157,22 @@ public class CertificadoJIFrame extends javax.swing.JInternalFrame {
         
         BDconnection con = new BDconnection();
         con.connect();
-        con.certificado(TF_email.getText(), preFijoEvento+TF_codEvento.getText());
+        int respuesta = con.certificado(TF_email.getText(), preFijoEvento+TF_codEvento.getText());
+        
+        switch(respuesta){
+            case 0:
+                JOptionPane.showMessageDialog(null,"Datos ingresador correctamente");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "El correo no existe en el registro");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "Ya se ha emitido un certificado para el participante: " + TF_email.getText() + " al evento: " + preFijoEvento+TF_codEvento.getText());
+                break;
+        }
     }//GEN-LAST:event_btn_certificadoActionPerformed
 
 

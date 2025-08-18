@@ -158,7 +158,22 @@ public class RegistroAsistenciaJIF extends javax.swing.JInternalFrame {
         
         BDconnection con = new BDconnection();
         con.connect();
-        con.regristrarAsistencia(email, codActividad);
+        int respuesta = con.regristrarAsistencia(email, codActividad);
+        
+        switch(respuesta){
+            case 0:
+                JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+                break;
+            case 1:
+                JOptionPane.showMessageDialog(null, "El correo electronico no existe en el registro");
+                break;
+            case 2:
+                JOptionPane.showMessageDialog(null, "El codigo de la actividad no existe en el registro");
+                break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "El correo del usuario no es un asistente");
+                break;
+        }
     }//GEN-LAST:event_btn_registrarAsistenciaActionPerformed
 
 

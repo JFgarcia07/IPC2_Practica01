@@ -154,7 +154,24 @@ public class InscripcionJIFrame extends javax.swing.JInternalFrame {
 
             BDconnection con = new BDconnection();
             con.connect();
-            con.inscripcion(email, codEvento, tipoInscripcion);
+            int respuesta = con.inscripcion(email, codEvento, tipoInscripcion);
+            
+            switch (respuesta) {
+                case 0:
+                    JOptionPane.showMessageDialog(null,"Datos ingresador correctamente");
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null, "El codigo del Evento no existe en el registro");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "El correo electronico del participante no existe en el registro");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "El correo electronico: " + email + " ya ha sido inscrito al evento con codigo: " + codEvento);
+                    break;
+                default:
+                    break;
+            }
             
             TF_codEvento.setText("");
             TF_email.setText("");

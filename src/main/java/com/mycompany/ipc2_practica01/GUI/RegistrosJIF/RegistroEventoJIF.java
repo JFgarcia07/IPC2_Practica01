@@ -249,7 +249,6 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
 
     private void btn_registrarEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarEventoActionPerformed
         final String preFijoEvt = "EVT-";
-
         if (TF_codEvento.getText().trim().isEmpty() || TF_titulo.getText().trim().isEmpty() || TF_ubicacion.getText().trim().isEmpty() || TF_cupoMax.getText().trim().isEmpty() || TF_costo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe de llenar todos los campos");
         } else {
@@ -264,7 +263,14 @@ public class RegistroEventoJIF extends javax.swing.JInternalFrame {
 
                 BDconnection con = new BDconnection();
                 con.connect();
-                con.registrarEvento(codEvento, fecha, tipoEvento, titulo, ubicacion, cupoMax, costo);
+                
+                int respuesta = con.registrarEvento(codEvento, fecha, tipoEvento, titulo, ubicacion, cupoMax, costo);
+                
+                if(respuesta == 0){
+                    JOptionPane.showMessageDialog(null,"Datos ingresador correctamente");
+                } else if (respuesta  == 1) {
+                    JOptionPane.showMessageDialog(null, "El codigo el evento ya existe en el registro");
+                }
                 
                 TF_codEvento.setText("");
                 TF_costo.setText("");
