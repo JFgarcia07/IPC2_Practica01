@@ -300,6 +300,37 @@ public class BDconnection {
         } 
     }
 
+    private boolean validarCupo(String codigo, String tabla){
+        int cupoMax = 0, registros = 0;
+        String sql = "SELECT cupo_maximo FROM "+ tabla +" WHERE "+ codigo +" = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setString(1, codigo);
+            try (ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    cupoMax = rs.getInt("cupo_maximo");
+                }
+            } 
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+        }
+        
+        String sql2 = "SELECT COUNT(*) FROM validarInscripcion";
+        try (PreparedStatement ps2 = connection.prepareStatement(sql2)){
+            try (ResultSet rs2 = ps2.executeQuery()){
+                if(rs2.next()){
+                    registros = rs2.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error inesperado");
+        }
+        
+        if(cupoMax < registros){
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * METODO QUE REALIZA EL INSERT PARA LA VALIDACION DE LA INSCRIPCION, CON SUS RESPECTIVAS VALIDACIONES 
      * PARA EVITAR EXCEPCIONES Y SE UTILIZA EL PreparedStatement PARA EVITAR EL SQL
@@ -313,6 +344,8 @@ public class BDconnection {
             return 1;
         } else if (buscarCodigo(codEvento, "evento", "codigo_evento") == false) {
             return 2;
+        } else if (validarCupo(codEvento, "evento") == false){
+            return 3;
         }
         
         String sql = "INSERT INTO validarInscripcion (correo_electronico, codigo_evento) VALUES (?, ?)";

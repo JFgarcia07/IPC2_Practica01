@@ -146,6 +146,9 @@ public class ValidarInscripcionJIFrame extends javax.swing.JInternalFrame {
             case 2:
                 JOptionPane.showMessageDialog(null, "El codigo del evento no existe en el registro");
                 break;
+            case 3:
+                JOptionPane.showMessageDialog(null, "Se ha alcanzado el cupo maximo para el evento");
+                break;
         }
     }//GEN-LAST:event_btn_validarInscripActionPerformed
 
