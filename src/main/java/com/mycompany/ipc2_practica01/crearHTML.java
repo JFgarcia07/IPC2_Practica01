@@ -65,7 +65,7 @@ public class crearHTML {
             salida.write("<body>\n");
 
             salida.write("<h1 style='text-align:center;'>TriForce Events</h1>\n");
-            salida.write("<h2 style='text-align:center;'>Reporte de Participantes</h2>\n");
+            salida.write("<h2 style='text-align:center;'>"+tipoReporte+"</h2>\n");
             salida.write("<table>\n");
 
             ResultSetMetaData rsmd = rs.getMetaData();

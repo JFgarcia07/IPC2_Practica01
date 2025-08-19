@@ -18,6 +18,7 @@ public class ValidarInscripcionJIFrame extends javax.swing.JInternalFrame {
      */
     public ValidarInscripcionJIFrame() {
         initComponents();
+        TF_codEvento.addKeyListener(new LimitadorCaracteres(8));
     }
 
     /**
@@ -148,6 +149,9 @@ public class ValidarInscripcionJIFrame extends javax.swing.JInternalFrame {
                 break;
             case 3:
                 JOptionPane.showMessageDialog(null, "Se ha alcanzado el cupo maximo para el evento");
+                break;
+            case 4:
+                JOptionPane.showMessageDialog(null, "El usuario ya ha sido inscrito a este evento");
                 break;
         }
     }//GEN-LAST:event_btn_validarInscripActionPerformed

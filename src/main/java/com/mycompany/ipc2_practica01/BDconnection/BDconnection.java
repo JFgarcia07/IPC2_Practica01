@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class BDconnection {
 
-    private static final String IP = "LocalHost";
+    private static final String IP = "localhost";
     private static final int PUERTO = 3306;
     private static final String SCHEMA = "TriForceEvents";
     private static final String USER_NAME = "adminDBA";
@@ -32,8 +32,10 @@ public class BDconnection {
 
     private crearHTML html = new crearHTML();
     private String ruta = "/home/jgarcia07/NetBeansProjects/IPC2_Practica01/Reportes";
-    
-    
+   
+    /**
+     * METODO PARA CONECTARSE A LA BASE DE DATOS
+     */
     public void connect() {
         try {
             connection = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
@@ -194,7 +196,6 @@ public class BDconnection {
     public int registrarParticipante(String nombre, String tipoParticipante, String institucion, String email) {
         //HAY QUE VALIDAR SI YA EXISTE EL USUARIO
         if(buscarEmail(email, "participante") == true){
-            //JOptionPane.showMessageDialog(null, "El correo electronico ya existe en el registro");
             return 1; 
         }
         
@@ -300,9 +301,9 @@ public class BDconnection {
         } 
     }
 
-    private boolean validarCupo(String codigo, String tabla){
+    private boolean validarCupo(String codigo){
         int cupoMax = 0, registros = 0;
-        String sql = "SELECT cupo_maximo FROM "+ tabla +" WHERE "+ codigo +" = ?";
+        String sql = "SELECT cupo_maximo FROM evento WHERE codigo_evento = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setString(1, codigo);
             try (ResultSet rs = ps.executeQuery()){
@@ -344,8 +345,10 @@ public class BDconnection {
             return 1;
         } else if (buscarCodigo(codEvento, "evento", "codigo_evento") == false) {
             return 2;
-        } else if (validarCupo(codEvento, "evento") == false){
+        } else if (validarCupo(codEvento) == false){
             return 3;
+        } else if (validarCorreoYcodEvento(email, codEvento, "validarInscripcion")){
+            return 4;
         }
         
         String sql = "INSERT INTO validarInscripcion (correo_electronico, codigo_evento) VALUES (?, ?)";
